@@ -1,7 +1,12 @@
 import React from 'react';
 
-const Person = () => {
-    return <p>Pradeep starting his first functional component </p>
+const Person = (props) => {
+    return (
+    <div>
+    <p>{props.name} aged {props.age} is eligble to vote</p>
+    <p>{props.children}</p>
+    </div>
+    )
 }
 
 export default Person;
