@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Person from './Person/Person'
+import Person from './Person/Person';
 
 
 class App extends Component {
@@ -19,7 +19,15 @@ class App extends Component {
         age: 30
       }
     ],
-    otherState: "some other value"
+    otherState: "some other value",
+    Userinput: [
+      {
+        username: 'Pradeep'
+      },
+      {
+        username: 'Pavan'
+      }
+    ]
   }
 
   switchHandlerName = (newName) => {
@@ -64,7 +72,42 @@ class App extends Component {
     });
   }
 
+  // Add input username to paragraph text
+
+  inputHandler = () => {
+    this.setState({
+      Userinput: [
+        {
+          username: 'ANup'
+        },
+        {
+          username: 'Chandan'
+        }
+      ]
+    });
+  }
+  // Add userinput to paragraph
+  inputchangeHandler = (event) => {
+    this.setState({
+      Userinput: [
+        {
+          username: event.target.value
+        },
+        {
+          username: 'Chandan'
+        }
+      ]
+    });
+  }
+
   render() {
+
+    const myStyle2 = {
+      backgroundColor: 'white',
+      border: '2px solid red',
+      color: 'green'
+    }
+
     return (
       <div className="App">
        <h1>Kick starting my first react app</h1>
@@ -72,7 +115,9 @@ class App extends Component {
        {/* <button onClick={() => this.switchHandlerName('Pradeep B G!!!!!')}>Switch Name</button> */}
        {/* 2nd way of passing value to function.
        (compared to below this is inefficient) */}
-       <button onClick={this.switchHandlerName.bind(this, 'Pradeep B G!')}>Switch Name</button>
+       <button 
+       style={myStyle2}
+       onClick={this.switchHandlerName.bind(this, 'Pradeep B G!')}>Switch Name</button>
        {/* 1 way to pass value to function */}
        <Person 
        name={this.state.Person[0].name} 
@@ -88,7 +133,22 @@ class App extends Component {
        click={this.switchHandlerName.bind(this, 'Max11!!')}
        >Your a great citizen!!</Person>
        <span>Some thing unique here</span>
+
+       <Userinput 
+       changed={this.inputchangeHandler}
+       currentValue={this.state.Userinput[0].username}></Userinput>
+       <Useroutput></Useroutput>
+
+       <Useroutput 
+       username = {this.state.Userinput[0].username}
+       click = {this.inputHandler}
+       >
+       asdadasdasdada
+       </Useroutput>
       </div>
+
+
+       
     );
   }
 }
