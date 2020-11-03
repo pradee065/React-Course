@@ -20,14 +20,7 @@ class App extends Component {
       }
     ],
     otherState: "some other value",
-    Userinput: [
-      {
-        username: 'Pradeep'
-      },
-      {
-        username: 'Pavan'
-      }
-    ]
+    personState: false
   }
 
   switchHandlerName = (newName) => {
@@ -72,31 +65,10 @@ class App extends Component {
     });
   }
 
-  // Add input username to paragraph text
-
-  inputHandler = () => {
+  togglePerson = () => {
+    const personshow = this.state.personState;
     this.setState({
-      Userinput: [
-        {
-          username: 'ANup'
-        },
-        {
-          username: 'Chandan'
-        }
-      ]
-    });
-  }
-  // Add userinput to paragraph
-  inputchangeHandler = (event) => {
-    this.setState({
-      Userinput: [
-        {
-          username: event.target.value
-        },
-        {
-          username: 'Chandan'
-        }
-      ]
+      personState: !personshow
     });
   }
 
@@ -108,6 +80,25 @@ class App extends Component {
       color: 'green'
     }
 
+    let Personcomponent = null;
+    if(this.state.personState){
+      Personcomponent = (<div> 
+      <Person 
+      name={this.state.Person[0].name} 
+      age={this.state.Person[0].age}/>
+      <Person 
+      name={this.state.Person[1].name} 
+      age={this.state.Person[1].age}
+      change= {this.namechangeHandler}
+      />
+      <Person 
+      name={this.state.Person[2].name} 
+      age={this.state.Person[2].age}
+      click={this.switchHandlerName.bind(this, 'Max11!!')}
+      >Your a great citizen!!</Person>
+     </div>)
+    }
+
     return (
       <div className="App">
        <h1>Kick starting my first react app</h1>
@@ -117,22 +108,8 @@ class App extends Component {
        (compared to below this is inefficient) */}
        <button 
        style={myStyle2}
-       onClick={this.switchHandlerName.bind(this, 'Pradeep B G!')}>Switch Name</button>
-       {/* 1 way to pass value to function */}
-       <Person 
-       name={this.state.Person[0].name} 
-       age={this.state.Person[0].age}/>
-       <Person 
-       name={this.state.Person[1].name} 
-       age={this.state.Person[1].age}
-       change= {this.namechangeHandler}
-       />
-       <Person 
-       name={this.state.Person[2].name} 
-       age={this.state.Person[2].age}
-       click={this.switchHandlerName.bind(this, 'Max11!!')}
-       >Your a great citizen!!</Person>
-       <span>Some thing unique here</span>
+       onClick={this.togglePerson}>Switch Name</button>
+       {Personcomponent}
       </div>
 
 
