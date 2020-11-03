@@ -133,18 +133,6 @@ class App extends Component {
        click={this.switchHandlerName.bind(this, 'Max11!!')}
        >Your a great citizen!!</Person>
        <span>Some thing unique here</span>
-
-       <Userinput 
-       changed={this.inputchangeHandler}
-       currentValue={this.state.Userinput[0].username}></Userinput>
-       <Useroutput></Useroutput>
-
-       <Useroutput 
-       username = {this.state.Userinput[0].username}
-       click = {this.inputHandler}
-       >
-       asdadasdasdada
-       </Useroutput>
       </div>
 
 
