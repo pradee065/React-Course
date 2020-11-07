@@ -7,14 +7,17 @@ class App extends Component {
   state = {
     Person : [
       {
+        id: 'aaaaa',
         name : "Max",
         age: 28
       },
       {
+        id: 'bbbb',
         name : "Max2",
         age: 29
       },
       {
+        id: 'cccc',
         name : "Max3",
         age: 30
       }
@@ -44,24 +47,35 @@ class App extends Component {
     });
   }
 
-  // Two way binding example
-  namechangeHandler = (event) => {
+  deletePerson = (personindex) => {
+    //const persons = this.state.Person.slice();//to copy array and make new copy
+    const persons = [...this.state.Person];//second way to copy array into new array
+    console.log(persons);
+    persons.splice(personindex, 1);
+    console.log(persons);
     this.setState({
-      Person : [
-        {
-          name : "Max20",
-          age: 29
-        },
-        {
-          name : event.target.value,
-          age: 29
-        },
-        {
-          name : "Max22",
-          age: 40
-        }
+      Person : persons
+    })
 
-      ]
+  }
+
+  // Two way binding example
+  namechangeHandler = (event, id) => {
+  const personindex = this.state.Person.findIndex(p => {
+    return p.id === id;
+  });
+
+  const person = {
+    ...this.state.Person[personindex]
+  }
+
+  person.name = event.target.value;
+
+  const Person = [...this.state.Person];
+  Person[personindex] = person;
+
+    this.setState({
+      Person : Person
     });
   }
 
@@ -83,19 +97,17 @@ class App extends Component {
     let Personcomponent = null;
     if(this.state.personState){
       Personcomponent = (<div> 
-      <Person 
-      name={this.state.Person[0].name} 
-      age={this.state.Person[0].age}/>
-      <Person 
-      name={this.state.Person[1].name} 
-      age={this.state.Person[1].age}
-      change= {this.namechangeHandler}
-      />
-      <Person 
-      name={this.state.Person[2].name} 
-      age={this.state.Person[2].age}
-      click={this.switchHandlerName.bind(this, 'Max11!!')}
-      >Your a great citizen!!</Person>
+     {
+      this.state.Person.map((person, index) => {
+        return <Person 
+        click={() => this.deletePerson(index)}
+        name={person.name} 
+        age={person.age}
+        key={person.id} 
+        change={(event) => this.namechangeHandler(event, person.id)}
+        />
+      })
+     } 
      </div>)
     }
 
@@ -108,7 +120,7 @@ class App extends Component {
        (compared to below this is inefficient) */}
        <button 
        style={myStyle2}
-       onClick={this.togglePerson}>Switch Name</button>
+       onClick={this.togglePerson}>Toggle Person</button>
        {Personcomponent}
       </div>
 
