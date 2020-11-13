@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Radium, { StyleRoot } from 'radium';
 import Person from './Person/Person';
 
 
@@ -24,6 +25,13 @@ class App extends Component {
     ],
     otherState: "some other value",
     personState: false
+  }
+  
+  togglePerson = () => {
+    const personshow = this.state.personState;
+    this.setState({
+      personState: !personshow
+    });
   }
 
   switchHandlerName = (newName) => {
@@ -79,19 +87,17 @@ class App extends Component {
     });
   }
 
-  togglePerson = () => {
-    const personshow = this.state.personState;
-    this.setState({
-      personState: !personshow
-    });
-  }
 
   render() {
 
-    const myStyle2 = {
-      backgroundColor: 'white',
+    const style = {
+      backgroundColor: 'green',
+      color:'white',
       border: '2px solid red',
-      color: 'green'
+      ':hover':{
+        backgroundColor: 'lightgreen',
+        color: 'yellow'
+      }
     }
 
     let Personcomponent = null;
@@ -107,30 +113,45 @@ class App extends Component {
         change={(event) => this.namechangeHandler(event, person.id)}
         />
       })
+
      } 
      </div>)
+
+     
+    style.backgroundColor = 'red';
+    style[":hover"] = {
+      backgroundColor: 'salmon'
+    }
+    }
+
+    let classes = [];
+    if(this.state.Person.length <= 2){
+      classes.push('red');
+    }
+    if(this.state.Person.length <= 1){
+      classes.push('bold');
     }
 
     return (
+      <StyleRoot>
       <div className="App">
        <h1>Kick starting my first react app</h1>
        <h2>Pradeep here</h2>
        {/* <button onClick={() => this.switchHandlerName('Pradeep B G!!!!!')}>Switch Name</button> */}
        {/* 2nd way of passing value to function.
        (compared to below this is inefficient) */}
+       <p className={classes.join(' ')}>This is really working</p>
        <button 
-       style={myStyle2}
+       style={style}
        onClick={this.togglePerson}>Toggle Person</button>
        {Personcomponent}
       </div>
-
-
-       
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+export default Radium(App);
 
 // const app = (props) => {
 //   const [ personState, setPersonState ] = useState({
