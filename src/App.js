@@ -135,7 +135,7 @@ class App extends Component {
     return (
       <StyleRoot>
       <div className="App">
-       <h1>Kick starting my first react app</h1>
+    <h1>{this.props.title}</h1>
        <h2>Pradeep here</h2>
        {/* <button onClick={() => this.switchHandlerName('Pradeep B G!!!!!')}>Switch Name</button> */}
        {/* 2nd way of passing value to function.
